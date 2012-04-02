@@ -20,38 +20,38 @@ public enum Enchantment {
             Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
     PROJECTILEPROTECTION ("Projectile Protection",EnchantmentType.PROTECTION,3,18,9,24,15,30,21,36,-1,-1, //For 1.2.4
             Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    RESPRIATION ("Respiration",EnchantmentType.PROTECTION,10,40,20,50,30,60,-1,-1,-1,-1, //For 1.2.4
+    RESPRIATION ("Respiration",EnchantmentType.GENERAL,10,40,20,50,30,60,-1,-1,-1,-1, //For 1.2.4
             Item.HELMET),
-    AQUAAFFINITY ("Aqua Affinity",EnchantmentType.PROTECTION,1,41,-1,-1,-1,-1,-1,-1,-1,-1, //For 1.2.4
+    AQUAAFFINITY ("Aqua Affinity",EnchantmentType.GENERAL,1,41,-1,-1,-1,-1,-1,-1,-1,-1, //For 1.2.4
             Item.HELMET),
-    SHARPNESS ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    SMITE ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    BANEOFARTHROPODS ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    KNOCKBACK ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    FIREASPECT ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    LOOTING ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    EFFICIENCY ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    SILKTOUCH ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    UNBREAKING ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    FORTUNE ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    POWER ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    PUNCH ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    FLAME ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS),
-    INIFINITY ("Protection",EnchantmentType.PROTECTION,1,21,17,37,33,53,49,69,-1,-1,
-            Item.HELMET,Item.CHESTPLATE,Item.LEGGINGS,Item.BOOTS);
+    SHARPNESS ("Sharpness",EnchantmentType.DAMAGE,1,21,17,37,33,53,49,69,65,85, //For 1.2.4
+            Item.SWORD),
+    SMITE ("Smite",EnchantmentType.DAMAGE,5,25,13,33,21,41,29,49,37,57, //For 1.2.4
+            Item.SWORD),
+    BANEOFARTHROPODS ("Bane of Arthropods",EnchantmentType.DAMAGE,5,25,13,33,21,41,29,49,37,57, //For 1.2.4
+            Item.SWORD),
+    KNOCKBACK ("Knockback",EnchantmentType.GENERAL,5,55,25,75,-1,-1,-1,-1,-1,-1, //For 1.2.4
+            Item.SWORD),
+    FIREASPECT ("Fire Aspect",EnchantmentType.GENERAL,10,60,30,80,-1,-1,-1,-1,-1,-1, //For 1.2.4
+            Item.SWORD),
+    LOOTING ("Looting",EnchantmentType.GENERAL,20,70,32,82,44,94,-1,-1, //For 1.2.4
+            Item.SWORD),
+    EFFICIENCY ("Efficiency",EnchantmentType.GENERAL,1,51,16,66,31,81,46,96,61,111, //For 1.2.4
+            Item.PICKAXE,Item.SHOVEL,Item.AXE),
+    SILKTOUCH ("Silk Touch",EnchantmentType.MINING,25,75,-1,-1,-1,-1,-1,-1,-1,-1, //For 1.2.4
+            Item.PICKAXE,Item.SHOVEL,Item.AXE),
+    UNBREAKING ("Unbreaking",EnchantmentType.GENERAL,5,55,15,65,25,75,-1,-1,-1,-1, //For 1.2.4
+            Item.PICKAXE,Item.SHOVEL,Item.AXE),
+    FORTUNE ("Fortune",EnchantmentType.MINING,20,70,32,82,44,94,-1,-1,-1,-1, //For 1.2.4
+            Item.PICKAXE,Item.SHOVEL,Item.AXE),
+    POWER ("Power",EnchantmentType.GENERAL,1,16,11,26,21,36,31,46,41,56, //For 1.2.4
+            Item.BOW),
+    PUNCH ("Punch",EnchantmentType.GENERAL,12,37,32,57,-1,-1,-1,-1,-1,-1, //For 1.2.4
+            Item.BOW)),
+    FLAME ("Flame",EnchantmentType.GENERAL,20,50,-1,-1,-1,-1,-1,-1,-1,-1, //For 1.2.4
+            Item.BOW)),
+    INIFINITY ("Infinity",EnchantmentType.GENERAL,20,50,-1,-1,-1,-1,-1,-1,-1,-1, //For 1.2.4
+            Item.BOW));
     
     
     private final String name;
