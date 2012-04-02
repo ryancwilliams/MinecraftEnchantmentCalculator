@@ -34,7 +34,7 @@ public enum Enchantment {
             Item.SWORD),
     FIREASPECT ("Fire Aspect",EnchantmentType.GENERAL,10,60,30,80,-1,-1,-1,-1,-1,-1, //For 1.2.4
             Item.SWORD),
-    LOOTING ("Looting",EnchantmentType.GENERAL,20,70,32,82,44,94,-1,-1, //For 1.2.4
+    LOOTING ("Looting",EnchantmentType.GENERAL,20,70,32,82,44,94,-1,-1,-1,-1, //For 1.2.4
             Item.SWORD),
     EFFICIENCY ("Efficiency",EnchantmentType.GENERAL,1,51,16,66,31,81,46,96,61,111, //For 1.2.4
             Item.PICKAXE,Item.SHOVEL,Item.AXE),
@@ -47,11 +47,11 @@ public enum Enchantment {
     POWER ("Power",EnchantmentType.GENERAL,1,16,11,26,21,36,31,46,41,56, //For 1.2.4
             Item.BOW),
     PUNCH ("Punch",EnchantmentType.GENERAL,12,37,32,57,-1,-1,-1,-1,-1,-1, //For 1.2.4
-            Item.BOW)),
+            Item.BOW),
     FLAME ("Flame",EnchantmentType.GENERAL,20,50,-1,-1,-1,-1,-1,-1,-1,-1, //For 1.2.4
-            Item.BOW)),
+            Item.BOW),
     INIFINITY ("Infinity",EnchantmentType.GENERAL,20,50,-1,-1,-1,-1,-1,-1,-1,-1, //For 1.2.4
-            Item.BOW));
+            Item.BOW);
     
     
     private final String name;
