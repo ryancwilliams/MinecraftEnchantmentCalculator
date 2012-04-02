@@ -43,7 +43,7 @@ public class Calculator {
         // Caculate Min modified enchantment level
         this.melMin = this.encLevel + 1;
         // Caculate Max modified enchantment level
-        this.melMax = this.encLevel + Encb + 1;
+        this.melMax = this.encLevel + (Encb * 2) + 1;
         // Caculate Mode for modified enchantment level
         this.melMode = ((this.melMax - this.melMin) / 2) + this.melMin;
     }
