@@ -27,6 +27,17 @@ public class EnchantmentTools {
         EnchantmentPower output = powers[(max - 1)];
         return output;
     }
+    public static EnchantmentPower[] getPower(Enchantment[] enc, int mel){
+        //Create output array
+        int length = enc.length;
+        EnchantmentPower[] output = new EnchantmentPower[length];
+        //Prossess array
+        for(int c = 0;c < length;c++) {
+            output[c] = getPower(enc[c],mel);
+        }
+        
+        return output;
+    }
     public static Enchantment[] getEnchantments(Item item) {
         Enchantment enc[] = Enchantment.values();
         
@@ -77,4 +88,5 @@ public class EnchantmentTools {
         
         return output;
     }
+    
 }

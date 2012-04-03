@@ -19,10 +19,16 @@ public class Calculator {
     private int melMax;
     private double melMode;
     
+    private EnchantmentSet[] enc; // Array for possible enchantments
+    
     public Calculator(Material material, Item item, int enchantmentLevel){
         this.material = material;
         this.item = item;
         this.encLevel = enchantmentLevel;
+    }
+    public void calculate() {
+        this.modEncLevel();
+        
     }
     void modEncLevel(){
         
@@ -46,5 +52,24 @@ public class Calculator {
         this.melMax = this.encLevel + (Encb * 2) + 1;
         // Caculate Mode for modified enchantment level
         this.melMode = ((this.melMax - this.melMin) / 2) + this.melMin;
+    }
+    void generateEnchantments() {
+        
+        int size = this.melMax-this.melMin;
+        
+        //Create array
+        this.enc = new EnchantmentSet[size];
+        
+        //Create the sets.
+        for(int c = 0;c < size;c++) {
+            //calucate mel for this set
+            int melc = c + this.melMin;
+            //generate enchantments
+            Enchantment[] tenc = EnchantmentTools.getPossible(melc, this.item);
+            //caculate enchantment power
+            EnchantmentPower[] tencp = EnchantmentTools.getPower(tenc, melc);
+            //add to array
+            this.enc[c] = new EnchantmentSet(tenc,tencp);
+        }
     }
 }
