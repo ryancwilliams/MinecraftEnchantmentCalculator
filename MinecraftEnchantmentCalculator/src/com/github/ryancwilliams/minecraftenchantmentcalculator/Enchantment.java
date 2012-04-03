@@ -87,4 +87,163 @@ public enum Enchantment {
         this.items = items;
         
     }
+    /**
+     * Returns the name of the enchantment
+     * @return the name of the enchantment
+     */
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public EnchantmentType getType() {
+        return this.type;
+    }
+    public int getMin(EnchantmentPower power) {
+        int output;
+        switch (power) {
+            case I: 
+                output = this.minLevelI; 
+                break;
+            case II:
+                output = this.minLevelII; 
+                break;
+            case III: 
+                output = this.minLevelIII; 
+                break;
+            case IV: 
+                output = this.minLevelIV; 
+                break;
+            case V: 
+                output = this.minLevelV; 
+                break;
+            default: 
+                output = -1;
+                break;
+        }
+        return output;
+    }
+    public int getMax(EnchantmentPower power) {
+        int output;
+        switch (power) {
+            case I: 
+                output = this.maxLevelI; 
+                break;
+            case II:
+                output = this.maxLevelII; 
+                break;
+            case III: 
+                output = this.maxLevelIII; 
+                break;
+            case IV: 
+                output = this.maxLevelIV; 
+                break;
+            case V: 
+                output = this.maxLevelV; 
+                break;
+            default: 
+                output = -1;
+                break;
+        }
+        return output;
+    }
+    public Item[] getItems() {
+        return this.items;
+    }
+    public boolean checkItem(Item item) {
+        int length = this.items.length;
+        //run once per element in this.items[]
+        for(int c = 0; c < length; c++) {
+            //Check if item is = to item at items[c]
+            if(item.equals(this.items[c])){
+                return true;
+            }
+        }
+        return false;
+    }
+    public EnchantmentPower[] getPower(int mel) {
+        int ac = 0; // Array counter
+        
+        // Power Flags
+        boolean I = false;
+        boolean II = false;
+        boolean III = false;
+        boolean IV = false;
+        boolean V = false;
+        
+        // Check Powers
+        // I
+        if(this.checkPower(EnchantmentPower.I, mel)){
+            ac++;
+            I = true;
+        }
+        // II
+        if(this.checkPower(EnchantmentPower.II, mel)){
+            ac++;
+            II = true;
+        }
+        // III
+        if(this.checkPower(EnchantmentPower.III, mel)){
+            ac++;
+            III = true;
+        }
+        // IV
+        if(this.checkPower(EnchantmentPower.IV, mel)){
+            ac++;
+            IV = true;
+        }
+        // V
+        if(this.checkPower(EnchantmentPower.V, mel)){
+            ac++;
+            V = true;
+        }
+        
+        //Return If None
+        if(!I && !II && !III && !IV && !V){
+            EnchantmentPower[] output = {null};
+            return output;
+        }
+        
+        //Create output array  
+        EnchantmentPower[] output = new EnchantmentPower[ac];
+        int ah = 0; //array head
+        
+        //load array
+        //I
+        if(I){
+            output[ah] = EnchantmentPower.I;
+            ah++;
+        }
+        //II
+        if(II){
+            output[ah] = EnchantmentPower.II;
+            ah++;
+        }
+        //III
+        if(III){
+            output[ah] = EnchantmentPower.III;
+            ah++;
+        }
+        //IV
+        if(IV){
+            output[ah] = EnchantmentPower.IV;
+            ah++;
+        }
+        //V
+        if(V){
+            output[ah] = EnchantmentPower.V;
+            ah++;
+        }
+        
+        return output;
+    }
+    public boolean checkPower(EnchantmentPower power,int mel) {
+        if((this.getMin(power) <= mel) && (mel <= this.getMax(power))){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
