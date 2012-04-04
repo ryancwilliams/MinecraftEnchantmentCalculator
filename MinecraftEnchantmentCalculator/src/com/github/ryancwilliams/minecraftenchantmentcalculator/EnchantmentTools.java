@@ -15,6 +15,12 @@ public class EnchantmentTools {
         enc = filterEnchantmentsPower(enc,mel);
         return enc;
     }
+    public static EnchantmentSet getPossibleSet(int mel, Item item){
+        Enchantment[] se = getPossible(mel,item);
+        EnchantmentPower[] sp = getPower(se,mel);
+        EnchantmentSet output = new EnchantmentSet(se,sp);
+        return output;
+    }
     public static EnchantmentPower getPower(Enchantment enc, int mel){
         EnchantmentPower powers[] = enc.getPower(mel);
         
@@ -88,5 +94,87 @@ public class EnchantmentTools {
         
         return output;
     }
-    
+    public static EnchantmentSet removeConflict(EnchantmentSet possible,Enchantment enchantment) {
+        int length = possible.enchantments.length;
+        
+        boolean[] valid = new boolean[length]; //Result flags
+        int inh = 0; //Search Counter
+        for(int c = 0;c < length;c++) {
+            if(isConflicting(possible.enchantments[c],enchantment)){
+                valid[c] = false;
+            } else {
+                valid[c] = true;
+                inh++;
+            }
+        }
+        
+        Enchantment[] oute = new Enchantment[inh]; //Output array with size from counter
+        EnchantmentPower[] outp = new EnchantmentPower[inh]; //Output array with size from counter
+        int outh = 0; //Out head
+        
+        for(int c = 0;c < length;c++){
+            if(valid[c]){
+                oute[outh] = possible.enchantments[c];
+                outp[outh] = possible.power[c];
+                outh++;
+            }
+        }
+        
+        EnchantmentSet output = new EnchantmentSet(oute,outp); 
+        
+        return output;
+    }
+    public static boolean isConflicting(Enchantment enca,Enchantment encb) {
+        //Check if same enchantment
+        if(enca==encb){
+            return true;
+        }
+        //Check if same type
+        if(enca.getType()==encb.getType()){
+            //Check if EnchantmentType is GENERAL and return false if true
+            if(enca.getType()==EnchantmentType.GENERAL){
+                return false;
+            } else {
+                return true;
+            }
+        }
+        //Return false if not returned aready
+        return false;
+    }
+    public static int getWeightSum(Enchantment[] enchantment) {
+        int length = enchantment.length;
+        
+        int out = 0;
+        for(int c = 0;c < length;c++){
+            //Add weight of enchantment to out
+            out = out + enchantment[c].getWeight();
+        }
+        return out;
+    }
+    public static int getWeightSum(EnchantmentSet set) {
+        int out = getWeightSum(set.enchantments);
+        return out;
+    }
+    public static AppliedEnchantment applyEnchantment(EnchantmentSet available,Enchantment enchantment) {
+        int length = available.enchantments.length;
+        
+        EnchantmentPower power = available.getPower(enchantment);
+        // Remove applied enchantment
+        EnchantmentSet set = removeConflict(available,enchantment);
+        
+        AppliedEnchantment out = new AppliedEnchantment(set,enchantment,power);
+        
+        return out;
+    }
+    public static AppliedEnchantment[] applyEnchantments(EnchantmentSet available) {
+        int length = available.enchantments.length;
+        
+        AppliedEnchantment[] output = new AppliedEnchantment[length];
+        
+        for(int c = 0;c < length;c++) {
+            output[c] = applyEnchantment(available,available.enchantments[c]);
+        }
+        
+        return output;
+    }
 }

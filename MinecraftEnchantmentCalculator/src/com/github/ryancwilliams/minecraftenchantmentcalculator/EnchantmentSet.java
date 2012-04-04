@@ -15,4 +15,14 @@ public class EnchantmentSet {
         this.enchantments = enchantments;
         this.power = power;
     }
+    public EnchantmentPower getPower(Enchantment enchantment) {
+        int length = this.enchantments.length;
+        
+        for(int c = 0;c < length;c++){
+            if(this.enchantments[c]==enchantment){
+                return this.power[c];
+            }
+        }
+        return null;
+    }
 }

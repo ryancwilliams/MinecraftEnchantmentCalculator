@@ -18,8 +18,14 @@ public class Calculator {
     private int melMin;
     private int melMax;
     private double melMode;
+    private int melSize;
     
     private EnchantmentSet[] enc; // Array for possible enchantments
+    private int encSize;
+    
+    private int depth = 1;
+    
+    private AppliedEnchantment[][] enca;
     
     public Calculator(Material material, Item item, int enchantmentLevel){
         this.material = material;
@@ -28,9 +34,11 @@ public class Calculator {
     }
     public void calculate() {
         this.modEncLevel();
+        this.generateEnchantments();
+        this.calculateDepth();
         
     }
-    void modEncLevel(){
+    private void modEncLevel(){
         
         int Encb;
         // Caculate Enchantability
@@ -53,23 +61,47 @@ public class Calculator {
         // Caculate Mode for modified enchantment level
         this.melMode = ((this.melMax - this.melMin) / 2) + this.melMin;
     }
-    void generateEnchantments() {
+    private void generateEnchantments() {
         
-        int size = this.melMax-this.melMin;
+        this.melSize = this.melMax-this.melMin;
         
         //Create array
-        this.enc = new EnchantmentSet[size];
+        this.enc = new EnchantmentSet[this.melSize];
         
         //Create the sets.
-        for(int c = 0;c < size;c++) {
+        for(int c = 0;c < this.melSize;c++) {
             //calucate mel for this set
             int melc = c + this.melMin;
-            //generate enchantments
-            Enchantment[] tenc = EnchantmentTools.getPossible(melc, this.item);
-            //caculate enchantment power
-            EnchantmentPower[] tencp = EnchantmentTools.getPower(tenc, melc);
+            //generate enchantmentSet and then
             //add to array
-            this.enc[c] = new EnchantmentSet(tenc,tencp);
+            this.enc[c] = EnchantmentTools.getPossibleSet(melc, this.item);
+        }
+        
+        this.encSize = this.enc[0].enchantments.length;
+    }
+    private void calculateDepth() {
+        int meld = this.melMax;
+        while(meld >=2) {
+            meld = meld/2;
+            this.depth++;
+        }
+    }
+    private void applyEnchantments() {
+        this.enca = new AppliedEnchantment[this.melSize][this.enc.length];
+        
+        //Create appliedEnchantments
+        //Run once per mel
+        for(int c = 0; c < this.melSize;c++) {
+            this.enca[c] = EnchantmentTools.applyEnchantments(this.enc[c]);
+        }
+        
+        //Generate subs for appliedEnchantments
+        //Run once per mel
+        for(int c = 0;c < this.melSize;c++) {
+            //Run once per Enc
+            for(int e = 0;c < this.encSize;c++) {
+                this.enca[c][e].applyEnchantments(this.depth-1);
+            }
         }
     }
 }

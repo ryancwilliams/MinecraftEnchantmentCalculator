@@ -1,7 +1,6 @@
 
-import com.github.ryancwilliams.minecraftenchantmentcalculator.Enchantment;
-import com.github.ryancwilliams.minecraftenchantmentcalculator.EnchantmentTools;
-import com.github.ryancwilliams.minecraftenchantmentcalculator.Item;
+import com.github.ryancwilliams.minecraftenchantmentcalculator.*;
+
 
 /*
  * To change this template, choose Tools | Templates
@@ -20,9 +19,10 @@ public class TestMain {
     public static void main(String[] args) {
         String output = null;
         
-        Enchantment[] enchantments = EnchantmentTools.getPossible(1, Item.CHESTPLATE);
-        int o = enchantments.length;
+        EnchantmentSet enchantments = EnchantmentTools.getPossibleSet(20, Item.BOW);
+        int o = 0;
         
+        boolean flag = EnchantmentTools.isConflicting(Enchantment.AQUAAFFINITY, Enchantment.EFFICIENCY);
         
         System.out.println(output);
         System.out.println("Done");
