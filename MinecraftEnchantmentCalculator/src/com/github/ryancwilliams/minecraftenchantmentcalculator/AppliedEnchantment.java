@@ -14,6 +14,7 @@ public class AppliedEnchantment {
     public final EnchantmentPower power;
     
     private AppliedEnchantment[] subs;
+    private boolean hasSubs = false;
     
     public AppliedEnchantment(EnchantmentSet available,Enchantment enchantment,EnchantmentPower power) {
         this.available = available;
@@ -25,6 +26,7 @@ public class AppliedEnchantment {
     }
     public void applyEnchantments() {
         this.subs = EnchantmentTools.applyEnchantments(available);
+        this.hasSubs = true;
     }
     public void applyEnchantments(int times) {
         this.applyEnchantments();
@@ -35,5 +37,8 @@ public class AppliedEnchantment {
         for (int c = 0;c < length;c++) {
             this.subs[c].applyEnchantments(times);
         }
+    }
+    public boolean hasSubs() {
+        return this.hasSubs;
     }
 }
