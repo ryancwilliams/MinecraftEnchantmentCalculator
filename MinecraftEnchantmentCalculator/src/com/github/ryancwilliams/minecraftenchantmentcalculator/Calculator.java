@@ -36,6 +36,7 @@ public class Calculator {
         this.modEncLevel();
         this.generateEnchantments();
         this.calculateDepth();
+        this.applyEnchantments();
         
     }
     private void modEncLevel(){

@@ -177,4 +177,39 @@ public class EnchantmentTools {
         
         return output;
     }
+    /**
+     * Removes a enchantment from a array
+     * @param enchantments the array
+     * @param element the enchantment to remove
+     * @return the array without the enchantment
+     */
+    public static Enchantment[] removeEnchantment(Enchantment[] enchantments,Enchantment element) {
+        int size = enchantments.length;
+        Enchantment[] out = new Enchantment[(enchantments.length - 1)];
+        int outh = 0;
+        for(int c = 0;c < size;c++) {
+            if(enchantments[c] != element) {
+                out[outh] = enchantments[c];
+                outh++;
+            }
+        }
+        return out;
+    }
+    /**
+     * Checks if enchantment is present in a array
+     * @param enchantments the array
+     * @param element the enchantment
+     * @return TRUE if the enchantment is present in the array
+     */
+    public static boolean contains(Enchantment[] enchantments,Enchantment element) {
+        int length = enchantments.length;
+        
+        for(int c = 0;c < length;c++) {
+            if(enchantments[c] == element) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }
