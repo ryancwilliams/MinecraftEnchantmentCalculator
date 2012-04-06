@@ -36,7 +36,6 @@ public class Calculator {
         this.modEncLevel();
         this.generateEnchantments();
         this.calculateDepth();
-        this.applyEnchantments();
         
     }
     private void modEncLevel(){
@@ -85,24 +84,6 @@ public class Calculator {
         while(meld >=2) {
             meld = meld/2;
             this.depth++;
-        }
-    }
-    private void applyEnchantments() {
-        this.enca = new AppliedEnchantment[this.melSize][this.enc.length];
-        
-        //Create appliedEnchantments
-        //Run once per mel
-        for(int c = 0; c < this.melSize;c++) {
-            this.enca[c] = EnchantmentTools.applyEnchantments(this.enc[c]);
-        }
-        
-        //Generate subs for appliedEnchantments
-        //Run once per mel
-        for(int c = 0;c < this.melSize;c++) {
-            //Run once per Enc
-            for(int e = 0;c < this.encSize;c++) {
-                this.enca[c][e].applyEnchantments(this.depth-1);
-            }
         }
     }
 }
