@@ -10,7 +10,7 @@ import com.github.ryancwilliams.minecraftenchantmentcalculator.math.Factorial;
  *
  * @author ryanwilliams
  */
-public class EnchantmentProbability {
+public class EnchantmentProbability { // This Class has been made obsolete by EnchantmentProbabilityTools  
     
     private final int mel;
     private final int depth;
