@@ -12,12 +12,14 @@ public class EnchantmentSet {
     public final Enchantment[] enchantments;
     public final EnchantmentPower[] power;
     public final int mel;
-    // Legacy Constructer
+    public final int depth;
+    // Legacy Constructor PENDING REMOVAL
     public EnchantmentSet(Enchantment[] enchantments, EnchantmentPower[] power) {
-        this(0,enchantments,power);
+        this(0,0,enchantments,power);
     }
-    public EnchantmentSet(int mel, Enchantment[] enchantments, EnchantmentPower[] power) {
+    public EnchantmentSet(int mel, int depth, Enchantment[] enchantments, EnchantmentPower[] power) {
         this.mel = mel;
+        this.depth = depth;
         this.enchantments = enchantments;
         this.power = power;
     }
