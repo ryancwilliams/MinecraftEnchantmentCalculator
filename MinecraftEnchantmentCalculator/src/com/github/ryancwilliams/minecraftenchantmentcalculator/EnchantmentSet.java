@@ -11,7 +11,13 @@ package com.github.ryancwilliams.minecraftenchantmentcalculator;
 public class EnchantmentSet {
     public final Enchantment[] enchantments;
     public final EnchantmentPower[] power;
+    public final int mel;
+    // Legacy Constructer
     public EnchantmentSet(Enchantment[] enchantments, EnchantmentPower[] power) {
+        this(0,enchantments,power);
+    }
+    public EnchantmentSet(int mel, Enchantment[] enchantments, EnchantmentPower[] power) {
+        this.mel = mel;
         this.enchantments = enchantments;
         this.power = power;
     }
