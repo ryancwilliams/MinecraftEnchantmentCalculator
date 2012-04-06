@@ -1,5 +1,9 @@
 
-import com.github.ryancwilliams.minecraftenchantmentcalculator.*;
+import com.github.ryancwilliams.minecraftenchantmentcalculator.Enchantment;
+import com.github.ryancwilliams.minecraftenchantmentcalculator.EnchantmentSet;
+import com.github.ryancwilliams.minecraftenchantmentcalculator.EnchantmentTools;
+import com.github.ryancwilliams.minecraftenchantmentcalculator.Item;
+import com.github.ryancwilliams.minecraftenchantmentcalculator.math.Factorial;
 
 
 /*
@@ -20,7 +24,7 @@ public class TestMain {
         String output = null;
         
         EnchantmentSet enchantments = EnchantmentTools.getPossibleSet(20, Item.BOW);
-        int o = 0;
+        int o = (int) Factorial.Factorial((byte) 30);
         
         boolean flag = EnchantmentTools.isConflicting(Enchantment.AQUAAFFINITY, Enchantment.EFFICIENCY);
         

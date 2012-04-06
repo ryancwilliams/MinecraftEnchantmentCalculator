@@ -212,4 +212,21 @@ public class EnchantmentTools {
         
         return false;
     }
+    /**
+     * Gets the total weight of all Enchantments of a given type
+     * @param type the type to get the weight of
+     * @return the weight of all enchantments of that type
+     */
+    public int getTypeWeight(EnchantmentType type) {
+        Enchantment[] enc = Enchantment.values();
+        int length = enc.length;
+        
+        int out = 0;
+        for(int c = 0;c < length;c++) {
+            if(enc[c].getType() == type) {
+                out = out + enc[c].getWeight();
+            }
+        }
+        return out;
+    }
 }

@@ -4,8 +4,6 @@
  */
 package com.github.ryancwilliams.minecraftenchantmentcalculator;
 
-import com.github.ryancwilliams.minecraftenchantmentcalculator.math.Factorial;
-
 /**
  *
  * @author ryanwilliams
@@ -21,8 +19,6 @@ public class EnchantmentProbability {
     private final Enchantment[] enchantment;
     private final EnchantmentPower[] power;
     private final int length;
-    
-    private final int tweight;
     
     private EnchantmentProbability[] subprobs;
     private boolean subscal = false;
@@ -54,10 +50,7 @@ public class EnchantmentProbability {
             this.power[c] = this.enc[c].power;
         }
         
-        this.tweight = this.calculateTWeight();
-        
         this.probability = this.calculateProbability();
-        
     }
     private double[] calculateProbability() {
         double[] out = new double[this.length];
@@ -80,11 +73,6 @@ public class EnchantmentProbability {
         out = ((this.mel/2)+1)/50;
         return out;
     }
-    private double caculateSubP(int mel) {
-        double out;
-        out = (mel + 1)/50;
-        return out;
-    }
     private int findEnchantment(Enchantment enc) {
         for(int c = 0;c < this.length;c++) {
             if(this.enchantment[c] == enc) {
@@ -92,19 +80,6 @@ public class EnchantmentProbability {
             }
         }
         return -1;
-    }
-    private int caculateMel(int mel) {
-        return this.caculateMel(mel, 1);
-    }
-    /**
-     * Calculates the mel for the depth
-     * @param mel the mel
-     * @param depth the depth to calculate to
-     * @return the mel for the depth
-     */
-    private int caculateMel(int mel,int depth) {
-        int out = (mel/(2 ^ depth));
-        return out;
     }
     /**
      * Gets the probability that a enchantment will be selected at this depth
@@ -136,38 +111,77 @@ public class EnchantmentProbability {
         return prob;
     }
     /**
-     * Gets the probability that a enchantment set will be selected.
+     * Gets the probability that a enchantment set will be selected at all depths deeper than this depth
      * @param enc the enchantments in the set to check
      * @return the probability of that enchantment set
      */
     public double getProbabilityD(Enchantment... enc) {
-        int length = enc.length;
+        int prams = enc.length;
         // Create output varable
         double prob = 0;
-        
-        prob = this.caculateTSubP(this.mel, this.depth) * this.caculateTEncP(enc) * Factorial.Factorial( (byte)this.depth);
-        
+        // Create done and end flag
+        boolean done;
+        boolean end;
+        // Set done flag
+        if(prams == 1) {
+            done = true;
+        } else {
+            done = false;
+        }    
+        // Set end flag
+        if(this.subscal) {
+            end = false;
+        } else {
+            end = true;
+        }
+        // Check if this branch is dead
+        boolean dead = true;
+        if(prams <= (this.depth+1)) {
+            dead = false;
+        } else if(done) {
+            dead = false;
+        }
+        // Check if this should run
+        if(!dead) {
+            // Get prob for this level and its subs
+            // Run once for each index
+            for(int i = 0;i < this.length;i++) {
+                // Get probability for this level
+                double probp = this.probability[i];
+                // Get enchantment in this index
+                Enchantment enci = this.enchantment[i];
+                // Create output varable for subs
+                double probll = 0;
+                // Create a array of enchantments for subs to check
+                Enchantment[] subenc;
+                // Check if this index has one of the enchantments
+                if(EnchantmentTools.contains(enc, enci)){
+                    // Check if this is last enchantment
+                    if(done) {
+                        probll = 1;// Set to 1 because next level does not mater
+                        subenc = null;
+                    } else {
+                        // Remove this enchantment from subs checklist
+                        subenc = EnchantmentTools.removeEnchantment(enc,enci);
+                    }
+                } else {
+                    // Copy input list to subs checklist
+                    subenc = enc;
+                }
+                // Check subs
+                if(!end && (probll == 0)){
+                    //Set to prob of next level
+                    probll = this.subp * this.subprobs[i].getProbabilityD(subenc);
+                } else if(end && (probll == 0)){
+                    probll = 0; // Set to 0 because this branch is null
+                }
+                // Caculate total prob for this enchantment combo (using * because these valves are ANDed)
+                double probe = probp * probll;
+                //Caculate total prob sofar (using + because these vales are ORed)
+                prob = prob + probe;
+            }
+        }    
         return prob;
-    }
-    private double caculateTSubP(int mel,int depth) {
-        double out = 1;
-        for(;depth > 0;depth--) {
-            int lel = this.caculateMel(mel, depth);
-            out = out * this.caculateSubP(lel);
-        }
-        return out;
-    }
-    private double caculateTEncP(Enchantment... enc) {
-        int prams = enc.length;
-        int tw = this.tweight;
-        double out = 1;
-        for(int c = 0;c < prams;c++) {
-            int cw = enc[c].getWeight();
-            double cp = cw/tw;
-            out = out * cp;
-            tw = tw - cw;
-        }
-        return out;
     }
     /**
      * Gets the probability that a enchantment will be selected at this depth. 
