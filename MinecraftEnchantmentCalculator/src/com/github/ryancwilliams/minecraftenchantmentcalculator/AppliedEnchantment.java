@@ -8,7 +8,7 @@ package com.github.ryancwilliams.minecraftenchantmentcalculator;
  *
  * @author ryanwilliams
  */
-public class AppliedEnchantment {
+public class AppliedEnchantment { // This Class has been made obsolete by EnchantmentSet
     public final EnchantmentSet available;
     public final Enchantment enchantment;
     public final EnchantmentPower power;

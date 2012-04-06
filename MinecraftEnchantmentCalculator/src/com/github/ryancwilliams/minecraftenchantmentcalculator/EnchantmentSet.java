@@ -33,4 +33,7 @@ public class EnchantmentSet {
         }
         return null;
     }
+    public double getProbability(Enchantment... enct) {
+        return EnchantmentProbabilityTools.getProbability(this.mel, this.depth, this.enchantments, enct);
+    }
 }
