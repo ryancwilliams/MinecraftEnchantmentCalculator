@@ -155,28 +155,6 @@ public class EnchantmentTools {
         int out = getWeightSum(set.enchantments);
         return out;
     }
-    public static AppliedEnchantment applyEnchantment(EnchantmentSet available,Enchantment enchantment) {
-        int length = available.enchantments.length;
-        
-        EnchantmentPower power = available.getPower(enchantment);
-        // Remove applied enchantment
-        EnchantmentSet set = removeConflict(available,enchantment);
-        
-        AppliedEnchantment out = new AppliedEnchantment(set,enchantment,power);
-        
-        return out;
-    }
-    public static AppliedEnchantment[] applyEnchantments(EnchantmentSet available) {
-        int length = available.enchantments.length;
-        
-        AppliedEnchantment[] output = new AppliedEnchantment[length];
-        
-        for(int c = 0;c < length;c++) {
-            output[c] = applyEnchantment(available,available.enchantments[c]);
-        }
-        
-        return output;
-    }
     /**
      * Removes a enchantment from a array
      * @param enchantments the array

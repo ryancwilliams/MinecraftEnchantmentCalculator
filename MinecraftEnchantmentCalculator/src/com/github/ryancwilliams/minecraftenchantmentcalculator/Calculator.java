@@ -25,8 +25,6 @@ public class Calculator {
     
     private int depth = 1;
     
-    private AppliedEnchantment[][] enca;
-    
     public Calculator(Material material, Item item, int enchantmentLevel){
         this.material = material;
         this.item = item;
