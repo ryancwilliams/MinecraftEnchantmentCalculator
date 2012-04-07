@@ -50,6 +50,7 @@ public class EnchantmentProbabilityTools {
         }
         return out;
     }
+    //BUG caculateTEncP does not account for Conflicting enchantments
     private static double caculateTEncP(int tweight,Enchantment... enc) {
         int prams = enc.length;
         int tw = tweight;
@@ -71,5 +72,29 @@ public class EnchantmentProbabilityTools {
     private static int caculateMel(int mel,int depth) {
         int out = (mel/(2 ^ depth));
         return out;
+    }
+    /**
+     * Calculates the weight of the conflicting enchantments. Does not remove 
+     * the weight of the enchantment being applied. 
+     * @param enca The available enchantments
+     * @param enc The enchantment being applied.
+     * @return The weight of the conflicting enchantments
+     */
+    private static int caculateCWeight(Enchantment[] enca,Enchantment enc) {
+        int length = enca.length;
+        int weight = 0;
+        for(int c = 0;c < length;c++) {
+            Enchantment cenc = enca[c];
+            if(EnchantmentTools.isConflicting(cenc, enc)){
+                //Check if same enchantment
+                if(cenc == enc) {
+                    //Do nothing Because this does not remove the weight of the curent enchantment
+                } else {
+                    weight = weight + cenc.getWeight();
+                }
+                
+            }
+        }
+        return weight;
     }
 }

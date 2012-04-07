@@ -18,7 +18,7 @@ public class EnchantmentTools {
     public static EnchantmentSet getPossibleSet(int mel, Item item){
         Enchantment[] se = getPossible(mel,item);
         EnchantmentPower[] sp = getPower(se,mel);
-        EnchantmentSet output = new EnchantmentSet(se,sp);
+        EnchantmentSet output = new EnchantmentSet(mel,0,se,sp);
         return output;
     }
     public static EnchantmentPower getPower(Enchantment enc, int mel){
@@ -94,13 +94,19 @@ public class EnchantmentTools {
         
         return output;
     }
-    public static EnchantmentSet removeConflict(EnchantmentSet possible,Enchantment enchantment) {
-        int length = possible.enchantments.length;
+    /**
+     * Removes enchantments that conflict with a enchantment from a array.
+     * @param possible The array of enchantments
+     * @param enchantment The enchantment to check against
+     * @return A array that contains the non-conflicting enchantments
+     */
+    public static Enchantment[] removeConflict(Enchantment[] possible,Enchantment enchantment) {
+        int length = possible.length;
         
         boolean[] valid = new boolean[length]; //Result flags
         int inh = 0; //Search Counter
         for(int c = 0;c < length;c++) {
-            if(isConflicting(possible.enchantments[c],enchantment)){
+            if(isConflicting(possible[c],enchantment)){
                 valid[c] = false;
             } else {
                 valid[c] = true;
@@ -109,21 +115,23 @@ public class EnchantmentTools {
         }
         
         Enchantment[] oute = new Enchantment[inh]; //Output array with size from counter
-        EnchantmentPower[] outp = new EnchantmentPower[inh]; //Output array with size from counter
         int outh = 0; //Out head
         
         for(int c = 0;c < length;c++){
             if(valid[c]){
-                oute[outh] = possible.enchantments[c];
-                outp[outh] = possible.power[c];
+                oute[outh] = possible[c];
                 outh++;
             }
         }
         
-        EnchantmentSet output = new EnchantmentSet(oute,outp); 
-        
-        return output;
-    }
+        return oute;
+    } 
+    /**
+     * Checks if 2 enchantments conflict with each other
+     * @param enca The first Enchantment
+     * @param encb The second Enchantment
+     * @return TRUE if the enchantments conflict
+     */
     public static boolean isConflicting(Enchantment enca,Enchantment encb) {
         //Check if same enchantment
         if(enca==encb){
@@ -206,5 +214,90 @@ public class EnchantmentTools {
             }
         }
         return out;
+    }
+    /**
+     * XORs the two arrays of Enchantments.
+     * @param enca the first array.
+     * @param encb the second array;
+     * @return The XORed array.
+     */
+    public Enchantment[] compareExclusive(Enchantment[] enca,Enchantment[] encb) {
+        int lengtha = enca.length;
+        int lengthb = encb.length;
+        
+        //Create include arrays
+        boolean[] inca = new boolean[lengtha];
+        boolean[] incb = new boolean[lengthb];
+        
+        //Include all
+        // for enca
+        for(int c = 0;c < lengtha;c++){
+            inca[c] = true;
+        }
+        // for encb
+        for(int c = 0;c < lengthb;c++){
+            incb[c] = true;
+        }
+        
+        //Do search
+        //Search enca
+        for(int a = 0;a < lengtha;a++) {
+            //Cache Current Status
+            boolean cinca = inca[a];
+            //Check if excluded
+            if(cinca == true) {
+                //Cache Current Enchantment
+                Enchantment cenc = enca[a];
+                //Search encb
+                for(int b = 0;b < lengthb;b++) {
+                    //Check if excluded
+                    if(incb[b] == true) {
+                        // If no check if present
+                        if(encb[b] == cenc) {
+                        //Exclude both
+                        incb[b] = false;
+                        cinca = false;
+                        }
+                    }
+                    
+                }
+                inca[a] = cinca;
+            }
+        }
+        
+        // Count TRUEs in include arrays
+        int lengthout = 0;
+        //  For inca
+        for(int c = 0;c < lengtha;c++){
+            if(inca[c] == true) {
+                lengthout++;
+            }
+        }
+        //  For incb
+        for(int c = 0;c < lengtha;c++){
+            if(incb[c] == true) {
+                lengthout++;
+            }
+        }
+        
+        // Create output array
+        Enchantment[] output = new Enchantment[lengthout];
+        int outh = 0;
+        
+        // Load output array
+        // With enca
+        for(int a = 0;a < lengtha;a++) {
+            if(inca[a] == true) {
+                output[outh] = enca[a];
+            }
+        }
+        // With encb
+        for(int b = 0;b < lengtha;b++) {
+            if(incb[b] == true) {
+                output[outh] = encb[b];
+            }
+        }
+        
+        return output;
     }
 }
